@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm start` - Run client side of app
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -12,57 +12,38 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `node server/server.js` - Run server side of app
 
-### `npm run build`
+This runs the server side of app that API fetches from.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Any changes made to the server side part of code requires a manual reload of server.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### Approach
+#### Components
+- Tried to create modular and composable component to handle rendering the translator components.
+- The `RenderTranslator` component is easily duplicated on the `App.js` in order for numbers to be converted to Roman Numerals and vice versa
+- If the UI also wished to be tested in the future, the composition of the components makes it easier to test in isolation.
+- Also made it responsive to a certain degree; however, media queries may be required to improve this aspect of the app
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Logic for translations - Translator.js
+- Translating numbers was Roman Numerals was the easier of the two functions to create.
+- You can divide each query into digits at the specific position they are in. IE: single, tenth, hundreth, and thousandth.
+- Example If the digit at hundreth place is `8`, then you can return `DCCC`.
+- You can continue to repeat this because until you get to get to the single unit.
+- This is quite performant because there is no looping through the numbers, it is a straight lookup based on the list provided. In short, it takes a constant time regardless of the query.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Translating Roman Numerals was trickier because there are a lot edge cases to deal with
+- Example of edge cases: 
+ -- Query is not roman numeral? ex. `Cat`
+ -- Query is above or below max and min numbers? ex. `9000`
+ -- Query is in mapping but is not valid roman numeral? ex `XLLLLV`
+- These edge cases meant that I had to create a more extensive hash map to store key value pairs and also keep track of the order of the strings to make sure the correct order is presevered.
+- The  translation function for Roman Numerals to numbers covers a lot of edge cases but it could definitely me made more robust
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Potential Modifications for the Future
+- Testing for the logic of the translations. This is especially useful to cover the hard-to-notice edge cases.
+- CSS could have been put in its own module for more readable code.
+- React hooks could have been used in UI so we can use stateless components
