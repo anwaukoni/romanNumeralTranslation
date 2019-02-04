@@ -27,15 +27,16 @@ Any changes made to the server side part of code requires a manual reload of ser
 - Also made it responsive to a certain degree; however, media queries may be required to improve this aspect of the app
 
 #### Logic for translations - Translator.js
-- Translating numbers was Roman Numerals was the easier of the two functions to create.
+- Translating numbers to Roman Numerals was the easier of the two functions to create.
 - You can divide each query into digits at the specific position they are in. IE: single, tenth, hundreth, and thousandth.
 - Example If the digit at hundreth place is `8`, then you can return `DCCC`.
 - You can continue to repeat this because until you get to get to the single unit.
 - This is quite performant because there is no looping through the numbers, it is a straight lookup based on the list provided. In short, it takes a constant time regardless of the query.
 
-
 - Translating Roman Numerals was trickier because there are a lot edge cases to deal with
-- Example of edge cases: 
+- The logic involves mathemically adding each number in the Roman Numeral list. Starting with 0, you add the highest number in the list and continue doing that until you get to the lowest number.
+- In cases that you have to deal with numbers like `IV`, a subtraction of `1` and an addition of `5` is made.
+- There were also other edge case to deal with. Ex: 
  -- Query is not roman numeral? ex. `Cat`
  -- Query is above or below max and min numbers? ex. `9000`
  -- Query is in mapping but is not valid roman numeral? ex `XLLLLV`
