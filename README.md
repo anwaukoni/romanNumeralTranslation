@@ -12,7 +12,7 @@ In the top level project directory, you can run:
 - You will also see any lint errors in the console.
 
 
-### `node src/endpoints.js` - Run server side of app
+### `node src/endpoints.js` - Run tests
 - This runs the server side of app that API fetches from.
 - Any changes made to the server side part of code requires a manual reload of server.
 
@@ -37,10 +37,10 @@ In the top level project directory, you can run:
 - The logic involves mathemically adding each number in the Roman Numeral list. Starting with 0, you add the highest number in the list and continue doing that until you get to the lowest number.
 - In cases that you have to deal with numbers like `IV`, a subtraction of `1` and an addition of `5` is made.
 - There were also other edge case to deal with. Ex: 
- - Query is not roman numeral? ex. `Cat`
- - Query is above or below max and min numbers? ex. `9000`
- - Query is in mapping but is not valid roman numeral? ex `XLLLLV`
-- These edge cases meant that I had to create a more extensive hash map to store key value pairs and also keep track of the order of the strings to make sure the correct order is presevered.
+   - Query is not roman numeral? ex. `Cat`
+   - Query is above or below max and min numbers? ex. `9000`
+   - Query is in mapping but is not valid roman numeral? ex `XLLLLV`
+   - These edge cases meant that I had to create a more extensive hash map to store key value pairs and also keep track of the order of the strings to make sure the correct order is presevered.
 - The  translation function for Roman Numerals to numbers covers a lot of edge cases but it could definitely me made more robust
 
 
