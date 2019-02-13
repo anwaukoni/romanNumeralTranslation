@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RenderTranslator from './RenderTranslator';
+import RenderTranslator from './components/RenderTranslator.jsx';
 import * as TranslatorAPI from './TranslatorAPI';
 
 class App extends Component {
